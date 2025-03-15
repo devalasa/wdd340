@@ -4,3 +4,180 @@
 *:after {
   box-sizing: border-box;
 }
+
+html {
+  background-image: url("../images/site/checkerboard.jpg");
+}
+
+body {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#bg-color {
+  background-color: white;
+  border: 4px solid #00b4d7;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.siteName a {
+  color: #222332;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 35px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#tools a {
+  color: rgb(76, 94, 95);
+  text-decoration: none;
+}
+
+#h-img {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+}
+
+#h-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#header-b {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  border: 1px #e1e1e1;
+  max-width: 40%;
+  background: 0, 0, 2, 3;
+  background-color: #FFFFFF4D;
+  backdrop-filter: blur(1px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  width: 100px;
+  height: 30px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  background-color: #242332;
+  padding: 10px;
+}
+
+li {
+  color: #dedfdf;
+}
+
+h1 {
+  font-family: "Ariel Black";
+  font-weight: -500;
+}
+
+h2 {
+  color: #05bce0;
+}
+
+h3 {
+  font-family: "Roboto", sans-serif;
+}
+
+p {
+  color: #05bce0;
+}
+
+button {
+  background-color: 
+  #01b0d3;
+  border: 4px solid 
+  #01b0d3;
+  border-radius: 2px;
+}
+
+#dmc-d {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bg-icon {
+  background-color: #01b0d3;
+  padding: 5px 20px 5px 20px;
+  border: 2px solid #acbcc6;
+}
+
+#upgrades {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+a {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#rows {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#icons img {
+  height: 100px;
+  width: 120px;
+}
+
+#icons {
+  display: flex;
+  flex-direction: column;
+}
+
+.reviews li {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px;
+}
+
+footer p {
+  color: #6e6e6e;
+  font-family: "Roboto", sans-serif;
+}
+
+
+@media screen and (max-width: 700px) {
+  html {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #dmc-d {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+
+  #header-b {
+    max-width: fit-content;
+  }
+
+  #upgrades {
+    align-items: center;
+    max-width: 800px;
+  }
+
+}
