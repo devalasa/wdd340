@@ -1,6 +1,15 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
 
+// Util.buildVehicleDetail = async function (vehicle) {
+//   const vehicleV = await vehicle 
+//   let html = `<div id="vehicle-view">
+//     <h1>${vehicleV.inv_make} ${vehicleData.inv_make}
+//     </div>`
+//   return html
+//   } 
+ 
+
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
@@ -47,7 +56,7 @@ Util.buildClassificationGrid = async function(data){
 Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassifications()
     console.log(data)
-    let list = "<ul>"
+    let list = '<ul class="links">'
     list += '<li><a href="/" title="Home Page">Home</a></li>'
     data.rows.forEach((row) => {
         list += "<li>"
@@ -65,4 +74,33 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
-module.exports = Util
+
+
+Util.buildVehicleDetail = async function (vehicle) {
+  const price = new Intl.NumberFormat("en-US", {
+    style: "currency", currency: "USD"
+  }).format(vehicle.inv_price);
+
+  const mileage = new Intl.NumberFormat().format(vehicle.inv_miles);
+
+  return `
+    <div class="vehicle-detail">
+      <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+      <div class="vehicle-info">
+        <h2>${vehicle.inv_make} ${vehicle.inv_model} (${vehicle.inv_year})</h2>
+         <p class="price"><strong>Price:</strong> ${price}</p>
+        <p><strong>Mileage:</strong> ${mileage} miles</p>
+        <p><strong>Description:</strong> ${vehicle.inv_description}</p>
+        <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+      </div>
+    </div>
+  `;
+}
+
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+
+
+
+
+module.exports = Util;

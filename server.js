@@ -12,7 +12,7 @@ const app = express()
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const baseController = require("./controllers/baseController")
-
+const utilities = require("./utilities/")
 
 /* ***********************
  * View Engine and Templates
@@ -49,4 +49,19 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
+
+
+// Global error handler (500 errors)
+app.use(async (err, req, res, next) => {
+  console.error(err.stack);
+  let nav = await utilities.getNav()
+  res.status(500).render("errors/error", {
+    title: "500 Server Error",
+    message: err.message || "Something went wrong on our end. Please try again later.",
+    nav,
+    layout: "./layouts/layout"
+  });
+});
+
+
 
