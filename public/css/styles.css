@@ -226,5 +226,14 @@ footer p {
     align-items: center;
     max-width: 800px;
   }
+  
+  .vehicle-detail {
+    display: flex;
+    flex-direction: column;
+  }
 
+  .vehicle-detail img {
+    width: 100%;
+    padding-left: 20px;
+  }
 }
