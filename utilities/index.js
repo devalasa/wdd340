@@ -97,6 +97,30 @@ Util.buildVehicleDetail = async function (vehicle) {
   `;
 }
 
+//Login page created
+Util.loginPage = async function (req, res, next) {
+  return `
+  <div id="form-l">
+  <form action="/account/login" method="post">
+  <div class="email">
+  <label for="account_email">Email</label>
+  <input type="email" name="account_email" id="account_email" required>
+  </div>
+  <div class="password">
+    <span>Passwords must be at leaset 12 characters and contain at least one uppercase letter, one lowercase letter, one number and one special character</span>
+    <input type="password" name="account_password" id="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z](?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$)">
+  </div>
+  <button type="submit">Login</button>
+  </form>
+
+  <p>No account? <a href="/account/register">Sign-up</a></p>
+  </div>
+  `
+}
+
+
+
+//Handle Errors created
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 

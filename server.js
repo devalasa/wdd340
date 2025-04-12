@@ -15,6 +15,12 @@ const baseController = require("./controllers/baseController")
 const utilities = require("./utilities/")
 const session = require("express-session")
 const pool = require('./database/')
+const accountRoute = require('./routes/accountRoute')
+const bodyParser = require("body-parser")
+
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 /* ***********************
  * View Engine and Templates
@@ -32,6 +38,7 @@ app.set("layout", "./layouts/layout") // not at views root
 app.use(static)
 // Inventory routes
 app.use("/inv", inventoryRoute)
+app.use("/account", accountRoute)
 
 // Index route
 app.get("/", baseController.buildHome)
@@ -67,6 +74,11 @@ app.use(async (err, req, res, next) => {
   });
 });
 
+// // 404 Error handler
+// app.use((req, res, next) => {
+//   res.status(404).render('errors/404', { title: 'Page Not Found' });
+// });
+
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -76,7 +88,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   name: 'sessionId',
-  }))
+}))
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -84,3 +96,5 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+
+
