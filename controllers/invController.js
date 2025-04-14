@@ -35,12 +35,55 @@ invCont.buildByInvId = async (req, res, next) => {
   }
 };
 
-// At the bottom of invController.js
 
+
+// Deliver Imventory Management View
+invCont.buildManagementView = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("inventory/management", {
+    title: "Inventory Management",
+    nav,
+    errors: null
+  })
+}
+
+
+// Deliver asdd-classification view
+invCont.buildAddClassification = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("inventory/add-classification", {
+    title: "Add Classification",
+    nav, 
+    errors: null
+  })
+}
+
+
+invCont.addClassification = async function (req, res) {
+  let nav = await utilities.getNav()
+  const { classification_name } = req.body
+
+  const result = await invModel.addClassification(classification_name)
+
+  if (result) {
+    res.redirect("/inv")
+  } else {
+    res.status(500).render("inventory/add-classification", {
+      title: "Add Classification",
+      nav, 
+      errors: null
+    })
+  }
+}
+
+
+// Handle Classification insertion
+invCont.addClassification
+
+// At the bottom of invController.js
 invCont.throwError = async function (req, res, next) {
   throw new Error("Sorry the vehicle you're looking for is unavailable");
 }
-
 
 
 
