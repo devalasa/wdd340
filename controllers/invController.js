@@ -78,7 +78,52 @@ invCont.addClassification = async function (req, res) {
 
 
 // Handle Classification insertion
-invCont.addClassification
+invCont.buildAddInventory = async function (req, res) {
+  let nav = await utilities.getNav()
+  let classificationList = await utilities.buildClassificationList()
+  res.render("inventory/add-inventory", {
+    title: "Add New Vehicle",
+    nav, 
+    classificationList,
+    errors: null,
+    // sticky data
+    inv_make: "", inv_model: "", inv_year: "", inv_description: "", 
+    inv_image: "/images/vehicles/", inv_thumbnail: "/images/vehicles/",
+    inv_price: "", inv_miles: "", inv_color: ""
+  })
+}
+
+invCont.addInventory = async function (req, res) {
+  let nav = await utilities.getNav()
+  let classificationList = await utilities.buildClassificationList(req.body.classification_id)
+  const { classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
+  try {
+    const result = await invModel.addInventoryItem({
+      classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color
+    })
+
+    if (result) {
+      res.redirect("/inv")
+    } else {
+      res.status(500).render("inventory/add-inventory", {
+        title: "Add New Vehicle",
+        nav,
+        classificationList,
+        errors: null,
+        ...req.body //sticky
+      })
+    }
+  } catch (error) {
+    console.error("Error adding vehicle:", error)
+    res.status(500).render("inventory/add-inventory", {
+      title: "Add New Vheicle",
+      nav,
+      classificationList,
+      errors: error.message,
+      ...req.body // sticky
+    })
+  }
+}
 
 // At the bottom of invController.js
 invCont.throwError = async function (req, res, next) {

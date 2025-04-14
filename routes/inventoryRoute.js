@@ -31,5 +31,8 @@ router.post(
     utilities.handleErrors(invController.addClassification)
 )
 
+router.get("/add-inventory", invController.buildAddInventory)
+
+router.post("/add-inventory", utilities.handleErrors(invController.addInventory));
 
 module.exports = router;
