@@ -17,7 +17,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require('./routes/accountRoute')
 const bodyParser = require("body-parser")
-
+const cookieParser = require("cookie-parser")
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -73,6 +73,10 @@ app.use(async (err, req, res, next) => {
     layout: "./layouts/layout"
   });
 });
+
+app.use(cookieParser())
+
+app.use(utilities.checkJWTToken)
 
 // // 404 Error handler
 // app.use((req, res, next) => {
