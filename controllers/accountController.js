@@ -11,11 +11,9 @@ const accountController = {}
 * *************************************** */
 accountController.buildLogin = async function(req, res, next) {
     let nav = await utilities.getNav()
-    let login = await utilities.loginPage()
     res.render("./account/login", {
         title: "Login",
         nav,
-        login
     })
 }
 
@@ -80,7 +78,6 @@ accountController.registerAccount = async function (req, res) {
 
 accountController.accountLogin = async function (req, res) {
     let nav = await utilities.getNav()
-    let login = await utilities.loginPage()
     const { account_email, account_password } = req.body
     const accountData = await acctModel.getAccountByEmail(account_email)
     if (!accountData) {
@@ -110,7 +107,6 @@ accountController.accountLogin = async function (req, res) {
         res.status(400).render("account/login", {
           title: "Login",
           nav,
-          login,
           errors: null,
           account_email,
         })
@@ -132,5 +128,9 @@ accountController.accountManagementView = async function (req, res) {
         // message: null
     })
 }
-  
+
+
+
+
+
 module.exports = accountController

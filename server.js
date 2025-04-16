@@ -76,7 +76,7 @@ app.use(async (err, req, res, next) => {
 
 app.use(cookieParser())
 
-app.use(utilities.checkJWTToken)
+
 
 // // 404 Error handler
 // app.use((req, res, next) => {
@@ -101,4 +101,4 @@ app.use(function(req, res, next){
   next()
 })
 
-
+app.use(utilities.checkJWTToken)

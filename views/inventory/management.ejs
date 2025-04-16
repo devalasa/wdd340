@@ -7,5 +7,11 @@
     <ul>
       <li class="classification"><a href="/inv/add-classification">Add New Classification</a></li>
       <li class="inv"><a href="/inv/add-inventory">Add New Inventory</a></li>
+      <h2>Manage Inventory</h2>
+      <p>Select a classification from the list see the items belonging to the classification</p>
+      <%- classificationSelect %>
+      <table id="inventoryDisplay"></table>
+      <noscript>JavaScript must be enabled to use this page.</noscript>
     </ul>
+    <script src="../../js/inventory.js"></script>
   </main>

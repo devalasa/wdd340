@@ -1,15 +1,8 @@
-const invModel = require("../models/inventory-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
-const Util = {}
+const invModel = require("../models/inventory-model")
 
-// Util.buildVehicleDetail = async function (vehicle) {
-//   const vehicleV = await vehicle 
-//   let html = `<div id="vehicle-view">
-//     <h1>${vehicleV.inv_make} ${vehicleData.inv_make}
-//     </div>`
-//   return html
-//   } 
+const Util = {}
  
 
 /* **************************************
@@ -121,28 +114,6 @@ Util.buildClassificationList = async function (classification_id = null) {
 }
 
 
-//Login page created
-Util.loginPage = async function (req, res, next) {
-  return `
-  <div id="form-l">
-  <form action="/account/login" method="post">
-  <div class="email">
-  <label for="account_email">Email</label>
-  <input type="email" name="account_email" id="account_email" required>
-  </div>
-  <div class="password">
-    <span>Passwords must be at leaset 12 characters and contain at least one uppercase letter, one lowercase letter, one number and one special character</span>
-    <input type="password" name="account_password" id="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-  </div>
-  <button type="submit">Login</button>
-  </form>
-
-  <p>No account? <a href="/account/register">Sign-up</a></p>
-  </div>
-  `
-}
-
-
 
 //Handle Errors created
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
@@ -158,7 +129,8 @@ Util.checkJWTToken = (req, res, next) => {
     process.env.ACCESS_TOKEN_SECRET,
     function (err, accountData) {
      if (err) {
-      req.flash("Please log in")
+      
+      // req.flash("Please log in")
       res.clearCookie("jwt")
       return res.redirect("/account/login")
      }
@@ -172,17 +144,17 @@ Util.checkJWTToken = (req, res, next) => {
  }
 
 
- /* ****************************************
+/* ****************************************
  *  Check Login
  * ************************************ */
-Util.checkLogin = (req, res, next) => {
+ Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
     next()
   } else {
+    // req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
   }
-}
-
+ }
 
 
 module.exports = Util;
