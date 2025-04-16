@@ -43,4 +43,12 @@ router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryVi
 // A route handler to watch for and direct the incoming request to the controller for processing
 router.post("/update/", invController.updateInventory)
 
+
+// Route to devliver delete confirmation view
+router.get("/delete/:inv_id", invController.buildDeleteInventory)
+
+// Route to carry out the delete operation
+router.post("/delete/", invController.deleteInventory)
+
+
 module.exports = router;

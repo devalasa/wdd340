@@ -101,4 +101,11 @@ app.use(function(req, res, next){
   next()
 })
 
+app.use((req, res, next) => {
+  res.locals.loggedin = req.cookies.jwt ? true : false;
+  res.locals.accountData = req.accountData || null;
+  next();
+});
+
+
 app.use(utilities.checkJWTToken)
