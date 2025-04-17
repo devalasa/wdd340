@@ -3,5 +3,29 @@
   <h1><%= title %></h1>
   <div class="detail-wrapper">
     <%- vehicleHtml %>
+    <% if (locals.accountData) { %>
+    <div class="feedback-section">
+        <form class="feedback-form" action="/feedback/add" method="POST">
+          <label for="feedback_text">Leave your feedback:</label><br>
+          <textarea name="feedback_text" id="feedback_text" rows="4" required></textarea>
+          <input type="hidden" name="inv_id" value="<%= vehicleData.inv_id %>">
+          <button type="submit">Post Feedback</button>
+        </form>
+      <% } else { %>
+        <p><a href="/account/login">Login</a> to leave feedback.</p>
+      <% } %>
+      
+      <h3>Feedback:</h3>
+      <% if (feedback && feedback.length > 0) { %>
+        <div class="feedback-list">
+          <% feedback.forEach(fb => { %>
+            <div class="feedback-item">
+              <p><%= fb.feedback_text %></p>
+              <p class="feedback-author">— <%= fb.firstname %> on <%= fb.feedback_date.toLocaleDateString() %></p>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
   </div>
 </main>

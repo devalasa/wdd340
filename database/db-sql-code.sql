@@ -77,6 +77,17 @@ SET account_type = 'Admin'
 Where account_email = 'manager@340.edu';
 
 
+CREATE TABLE feedback (
+  feedback_id SERIAL PRIMARY KEY,
+  account_id INT NOT NULL,
+  inv_id INT NOT NULL,
+  feedback_text TEXT NOT NULL,
+  feedback_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (account_id) REFERENCES account(account_id),
+  FOREIGN KEY (inv_id) REFERENCES inventory(inv_id)
+);
+
+
 -- Account Informations
 -- account_firstname: Basic
 -- account_lastname: Client

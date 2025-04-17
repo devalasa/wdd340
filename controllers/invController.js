@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
+const feedbackModel = require("../models/feedbackModel")
+
 
 const invCont = {}
 
@@ -24,17 +26,19 @@ invCont.buildByInvId = async (req, res, next) => {
   try {
     const vehicleData = await invModel.getVehicleById(inv_id);  // Fetch vehicle data
     const html = await utilities.buildVehicleDetail(vehicleData);  // Generate vehicle detail HTML
-    let nav = await utilities.getNav();  // Get navigation (if needed)
+    let nav = await utilities.getNav();  
+    const feedback = await feedbackModel.getFeedbackByVehicle(inv_id); // 🔥 Add this line  // Get navigation (if needed)
     res.render("inventory/vehicle-detail", {
       title: `${vehicleData.inv_year} ${vehicleData.inv_make} ${vehicleData.inv_model}`,
       nav,
       vehicleHtml: html,
+      vehicleData,
+      feedback, // 🔥 Pass to view
     });
   } catch (error) {
     next(error);  // Pass the error to the error-handling middleware
   }
 };
-
 
 
 
@@ -272,6 +276,10 @@ invCont.deleteInventory = async function (req, res, next) {
     res.redirect("/inv/delete/" + inv_id);
   }
 };
+
+
+
+
 
 
 

@@ -342,6 +342,84 @@ button:hover {
   background-color: #21618c;
 }
 
+/* Feedback Section */
+.feedback-section {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Feedback Heading */
+.feedback-section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Feedback Form */
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feedback-form label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #333;
+}
+
+.feedback-form textarea {
+  resize: vertical;
+  min-height: 120px;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.feedback-form button {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.feedback-form button:hover {
+  background-color: #003d80;
+}
+
+/* Submitted Feedback List */
+.feedback-list {
+  margin-top: 2rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+}
+
+.feedback-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #ccc;
+}
+
+.feedback-item p {
+  margin: 0.5rem 0;
+}
+
+.feedback-author {
+  font-size: 0.9rem;
+  color: #666;
+}
+
 @media screen and (max-width: 700px) {
   html {
     flex-direction: column;
