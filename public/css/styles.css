@@ -23,7 +23,22 @@ body {
 
 header {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+}
+
+header li {
+  list-style: none;
+}
+
+#tools {
+  display: flex;
+  flex-direction: row;
+}
+
+header a {
+  text-decoration: none;
+  color: #6e6e6e;
 }
 
 .siteName a {

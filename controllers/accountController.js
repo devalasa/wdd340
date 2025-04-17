@@ -34,7 +34,7 @@ accountController.buildRegister = async function(req, res, next) {
 /* ****************************************
 *  Process Registration
 * *************************************** */
-accountController.registerAccount = async function (req, res) {
+accountController.registerAccount = async function(req, res) {
 
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_password } = req.body
@@ -76,7 +76,7 @@ accountController.registerAccount = async function (req, res) {
  *  Process login request
  * ************************************ */
 
-accountController.accountLogin = async function (req, res) {
+accountController.accountLogin = async function(req, res) {
     let nav = await utilities.getNav()
     const { account_email, account_password } = req.body
     const accountData = await acctModel.getAccountByEmail(account_email)
@@ -119,7 +119,7 @@ accountController.accountLogin = async function (req, res) {
 /* ****************************************
  *  Account Management View
  * ************************************ */
-accountController.accountManagementView = async function (req, res) {
+accountController.accountManagementView = async function(req, res) {
     const nav = await utilities.getNav()
     res.render("account/management", {
         title: "Account Management",
@@ -129,6 +129,83 @@ accountController.accountManagementView = async function (req, res) {
     })
 }
 
+
+accountController.buildUpdateForm = async function(req, res) {
+  const account_id = parseInt(req.params.account_id)
+  const accountData = await acctModel.getAccountById(account_id)
+
+  res.render("account/update-account", {
+    title: "Update Account",
+    nav,
+    accountData,
+    errors: null,
+    message: null,
+  })
+}
+
+
+accountController.updateAccount = async function(req, res) {
+  const { account_id, account_firstname, account_lastname, account_email } = req.body
+
+  const updateResult = await acctModel.updateAccount(account_id, account_firstname, account_lastname, account_email)
+
+  if (updateResult) {
+    const accountData = await acctModel.getAccountById(account_id)
+    res.render("account/account-management", {
+      title: "Account Management",
+      nav,
+      accountData,
+      message: "Account updated successfully.",
+      errors: null,
+    })
+  } else {
+    res.render("account/update-account", {
+      title: "Update Account",
+      nav,
+      accountData: { account_id, account_firstname, account_lastname, account_email },
+      errors: null,
+      message: "Update failed. Try again.",
+    })
+  }
+}
+
+
+
+ accountController.changePassword = async function(req, res) {
+  const { account_id, account_password } = req.body
+
+  try {
+    const hashedPassword = await bcrypt.hash(account_password, 10)
+    const updateResult = await acctModel.updatePassword(account_id, hashedPassword)
+
+    const accountData = await acctModel.getAccountById(account_id)
+    const message = updateResult ? "Password updated successfully." : "Failed to update password."
+
+    res.render("account/account-management", {
+      title: "Account Management",
+      nav,
+      accountData,
+      errors: null,
+      message,
+    })
+  } catch (error) {
+    console.error("Password change error:", error)
+    res.render("account/update-account", {
+      title: "Update Account",
+      nav,
+      accountData: { account_id },
+      errors: [{ msg: "Something went wrong. Try again." }],
+      message: null,
+    })
+  }
+}
+
+/* Process Logout */
+accountController.logoutAccount = async function(req, res) {
+  res.clearCookie("jwt") // remove JWT token cookie
+  // req.flash("notice", "You have successfully logged out.")
+  res.redirect("/")
+}
 
 
 
